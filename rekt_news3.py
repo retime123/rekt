@@ -144,38 +144,42 @@ class rekt_news3(BaseSpider):
                 Hacker_wallet = []
                 Attack_transaction = []
                 Attack_contract = []
-                for tg in Content_tag.select('p'):
-                    Attacker_address_temp = re.findall(r'[Aa]ttacker.*? [Aa]ddress.*?:.*(http.*?0x.*?)">', str(tg), re.S)
+                base_tag = Content_tag.select('p')
+                for n, tg in enumerate(base_tag):
+                    new_tag = str(tg)
+                    if n < len(base_tag) - 1:
+                        new_tag += str(base_tag[n+1])
+                    Attacker_address_temp = re.findall(r'[Aa]ttacker.*? [Aa]ddress.*?:.*(http.*?0x.*?)">', str(new_tag), re.S)
                     if Attacker_address_temp:
                         Attacker_address += Attacker_address_temp
-                    Attacker_tx_temp = re.findall(r'[Aa]ttack.*? tx.*?:.*?(http.*?0x.*?)">', str(tg), re.S)
+                    Attacker_tx_temp = re.findall(r'[Aa]ttack.*? tx.*?:.*?(http.*?0x.*?)">', str(new_tag), re.S)
                     if Attacker_tx_temp:
                         Attacker_tx += Attacker_tx_temp
-                    Exploit_tx_temp = re.findall(r'[Ee]xploit.*? [Tt]x.*?:.*?(http.*?0x.*?)">', str(tg), re.S)
+                    Exploit_tx_temp = re.findall(r'[Ee]xploit.*? [Tt]x.*?:.*?(http.*?0x.*?)">', str(new_tag), re.S)
                     if Exploit_tx_temp:
                         Exploit_tx += Exploit_tx_temp
-                    Example_tx_temp = re.findall(r'[Ee]xample.*? [Tt]x.*?:.*?(http.*?0x.*?)">', str(tg), re.S)
+                    Example_tx_temp = re.findall(r'[Ee]xample.*? [Tt]x.*?:.*?(http.*?0x.*?)">', str(new_tag), re.S)
                     if Example_tx_temp:
                         Example_tx += Example_tx_temp
-                    Exploit_address_temp = re.findall(r'[Ee]xploiter.*? [Aa]ddress.*?:.*?(http.*?0x.*?)">', str(tg), re.S)
+                    Exploit_address_temp = re.findall(r'[Ee]xploiter.*? [Aa]ddress.*?:.*?(http.*?0x.*?)">', str(new_tag), re.S)
                     if Exploit_address_temp:
                         Exploit_address += Exploit_address_temp
-                    Example_transaction_temp = re.findall(r'[Ee]xample.*? [Tt]ransaction.*?:.*?(http.*?0x.*?)">', str(tg), re.S)
+                    Example_transaction_temp = re.findall(r'[Ee]xample.*? [Tt]ransaction.*?:.*?(http.*?0x.*?)">', str(new_tag), re.S)
                     if Example_transaction_temp:
                         Example_transaction += Example_transaction_temp
-                    Ethereum_temp = re.findall(r'[Ee]Hacker.*?:.*?(http.*?0x.*?)">', str(tg), re.S)
+                    Ethereum_temp = re.findall(r'[Ee]Hacker.*?:.*?(http.*?0x.*?)">', str(new_tag), re.S)
                     if Ethereum_temp:
                         Ethereum += Ethereum_temp
-                    Hacker_address_temp = re.findall(r'[Hh]acker.*? [Aa]ddress.*?:.*?(http.*?0x.*?)">', str(tg), re.S)
+                    Hacker_address_temp = re.findall(r'[Hh]acker.*? [Aa]ddress.*?:.*?(http.*?0x.*?)">', str(new_tag), re.S)
                     if Hacker_address_temp:
                         Hacker_address += Hacker_address_temp
-                    Hacker_wallet_temp = re.findall(r'[Hh]acker.*? [Ww]allet.*?:.*?(http.*?0x.*?)">', str(tg), re.S)
+                    Hacker_wallet_temp = re.findall(r'[Hh]acker.*? [Ww]allet.*?:.*?(http.*?0x.*?)">', str(new_tag), re.S)
                     if Hacker_wallet_temp:
                         Hacker_wallet += Hacker_wallet_temp
-                    Attack_transaction_temp = re.findall(r'[Aa]ttack.*? [Tt]ransaction.*?:.*?(http.*?0x.*?)">', str(tg), re.S)
+                    Attack_transaction_temp = re.findall(r'[Aa]ttack.*? [Tt]ransaction.*?:.*?(http.*?0x.*?)">', str(new_tag), re.S)
                     if Attack_transaction_temp:
                         Attack_transaction += Attack_transaction_temp
-                    Attack_contract_temp = re.findall(r'[Aa]ttack.*? [Cc]ontract.*?:.*?(http.*?0x.*?)">', str(tg), re.S)
+                    Attack_contract_temp = re.findall(r'[Aa]ttack.*? [Cc]ontract.*?:.*?(http.*?0x.*?)">', str(new_tag), re.S)
                     if Attack_contract_temp:
                         Attack_contract += Attack_contract_temp
                 if Content:
